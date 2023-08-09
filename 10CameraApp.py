@@ -112,9 +112,9 @@ while True:
         if (time.time() - start_time ) > 0:
             fpsInfo = "FPS: " + str(1.0 / (time.time() - start_time)) # FPS = 1 / time to process loop
             font = cv2.FONT_HERSHEY_DUPLEX
-            cv2.putText(img, fpsInfo, (10, 20), font, 0.4, (255, 255, 255), 1)
+            cv2.putText(img, fpsInfo, (10, 20), font, 0.4, colorDetected, 1)
 
-    cv2.imshow('@elbruno - DJI Tello Camera', img)
+    cv2.imshow('Ocean Clean Up', img)
 
     # key controller
     key = cv2.waitKey(1) & 0xFF    
