@@ -47,14 +47,15 @@ def displayPredictions(jsonPrediction, frame):
                 # draw bounding boxes
                 start_point = (left, top)                 
                 end_point = (left + width, top + height) 
-                color = (255, 0, 0) 
                 thickness = 2                
-                cv2.rectangle(img, start_point, end_point, color, thickness)                 
+                cv2.rectangle(img, start_point, end_point, colorDetected, thickness)                 
                 print(f'start point: {start_point} - end point: {end_point}')
 
                 if displayLabels:
+                    # format probability with no decimals
+                    probability = "{:.0f}%".format(probability)                    
                     label = f'{tagName} - {probability}'
-                    cv2.putText(img, label, (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2, cv2.LINE_AA)
+                    cv2.putText(img, label, (left, top - 10), cv2.FONT_HERSHEY_COMPLEX_SMALL, 0.8, colorDetected, 1, cv2.LINE_AA)
                 
     return strSortedPreds
 
@@ -73,6 +74,10 @@ frameSize = (camera_Width, camera_Heigth)
 
 detectionEnabled = True
 displayLabels = True
+displayFPS = True
+
+# create color detected as White
+colorDetected = (255, 255, 255)
 
 while True:
     # Init and FPS process
@@ -102,11 +107,12 @@ while True:
     except Exception as e:
         print('EXCEPTION:', str(e))
 
-    fpsInfo = ""
-    if (time.time() - start_time ) > 0:
-        fpsInfo = "FPS: " + str(1.0 / (time.time() - start_time)) # FPS = 1 / time to process loop
-        font = cv2.FONT_HERSHEY_DUPLEX
-        cv2.putText(img, fpsInfo, (10, 20), font, 0.4, (255, 255, 255), 1)
+    if displayFPS:
+        fpsInfo = ""
+        if (time.time() - start_time ) > 0:
+            fpsInfo = "FPS: " + str(1.0 / (time.time() - start_time)) # FPS = 1 / time to process loop
+            font = cv2.FONT_HERSHEY_DUPLEX
+            cv2.putText(img, fpsInfo, (10, 20), font, 0.4, (255, 255, 255), 1)
 
     cv2.imshow('@elbruno - DJI Tello Camera', img)
 
