@@ -70,5 +70,5 @@ def predict_image(image):
     response = {'id': '', 'project': '', 'iteration': '', 'created': datetime.utcnow().isoformat(),
                 'predictions': predictions}
 
-    print("Resuls: " + str(response))
+    #print("Resuls: " + str(response))
     return response

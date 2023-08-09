@@ -30,8 +30,12 @@ def displayPredictions(jsonPrediction, frame):
             # tag name and prob * 100
             tagName     = str(pred['tagName'])
             probability = pred['probability'] * 100
+            #print(f'{tagName} - {probability}')
+
             # apply threshold
             if (probability >= probabilityThreshold):
+                print(f'{tagName} - {probability}')
+
                 bb = pred['boundingBox']
 
                 # adjust to size
@@ -41,15 +45,12 @@ def displayPredictions(jsonPrediction, frame):
                 width = int(bb['width'] * camera_Width)
 
                 # draw bounding boxes
-                start_point = (top, left)                 
-                end_point = (top + height, left + width) 
+                start_point = (left, top)                 
+                end_point = (left + width, top + height) 
                 color = (255, 0, 0) 
                 thickness = 2                
                 cv2.rectangle(img, start_point, end_point, color, thickness)                 
-
-                print(f'{tagName} - {probability}')
                 print(f'start point: {start_point} - end point: {end_point}')
-                print(jsonPrediction)
                 
     return strSortedPreds
 
@@ -77,7 +78,8 @@ while True:
     try:
         # Grab a single frame of video
         ret, frame = camera.read()
-        img = cv2.resize(frame, (camera_Width, camera_Heigth))
+        fast_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
+        img = cv2.resize(fast_frame, (camera_Width, camera_Heigth))
 
         if  (detectionEnabled):
             # save image to disk and process it
