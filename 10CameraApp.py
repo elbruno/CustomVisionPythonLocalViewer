@@ -51,6 +51,10 @@ def displayPredictions(jsonPrediction, frame):
                 thickness = 2                
                 cv2.rectangle(img, start_point, end_point, color, thickness)                 
                 print(f'start point: {start_point} - end point: {end_point}')
+
+                if displayLabels:
+                    label = f'{tagName} - {probability}'
+                    cv2.putText(img, label, (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2, cv2.LINE_AA)
                 
     return strSortedPreds
 
@@ -68,6 +72,7 @@ camera_Heigth = 480 # 960 # 780  # 960  # 480
 frameSize = (camera_Width, camera_Heigth)
 
 detectionEnabled = True
+displayLabels = True
 
 while True:
     # Init and FPS process
