@@ -15,41 +15,43 @@ from PIL import Image
 # Imports for prediction
 from predict import initialize, predict_image, predict_url
 
-probabilityThreshold = 5
+probabilityThreshold = 15
 
-# Like the CustomVision.ai Prediction service /image route handles either
-def predict_image_handler(ImageData):
-    try:
-        img = Image.open(ImageData)
-        results = predict_image(img)
-        # with app.app_context():        
-        #     return jsonify(results)
-        return str(results)
-    except Exception as e:
-        print('EXCEPTION:', str(e))
-        return 'Error processing image', 500
+def displayPredictions(jsonPrediction, frame):
 
+    global camera_Width, camera_Heigth
+    jsonObj = json.loads(jsonPrediction)
+    preds = jsonObj['predictions']
+    sorted_preds = sorted(preds, key=lambda x: x['probability'], reverse=True)
+    strSortedPreds = ""
+    resultFound = False
+    if (sorted_preds):
+        for pred in sorted_preds:
+            # tag name and prob * 100
+            tagName     = str(pred['tagName'])
+            probability = pred['probability'] * 100
+            # apply threshold
+            if (probability >= probabilityThreshold):
+                bb = pred['boundingBox']
 
-def getPredictionsSorted(jsonPrediction):
-  print("**************************")
-  print("JSON PREDICTION:")
-  print(jsonPrediction)
-  print("**************************")
+                # adjust to size
+                height = int(bb['height'] * camera_Heigth)
+                left = int(bb['left'] * camera_Width)
+                top = int(bb['top'] * camera_Heigth)
+                width = int(bb['width'] * camera_Width)
 
+                # draw bounding boxes
+                start_point = (top, left)                 
+                end_point = (top + height, left + width) 
+                color = (255, 0, 0) 
+                thickness = 2                
+                cv2.rectangle(img, start_point, end_point, color, thickness)                 
 
-  jsonObj = json.loads(jsonPrediction)
-  preds = jsonObj['predictions']
-  sorted_preds = sorted(preds, key=lambda x: x['probability'], reverse=True)
-  strSortedPreds = ""
-  if (sorted_preds):
-    for pred in sorted_preds:
-        # tag name and prob * 100
-        tagName     = str(pred['tagName'])
-        probability = pred['probability'] * 100
-        # apply threshold
-        if (probability >= probabilityThreshold):
-            strSortedPreds = strSortedPreds + tagName + ": " + str(probability) + "\n"
-  return strSortedPreds
+                print(f'{tagName} - {probability}')
+                print(f'start point: {start_point} - end point: {end_point}')
+                print(jsonPrediction)
+                
+    return strSortedPreds
 
 # instantiate flask app and push a context
 app = Flask(__name__)
@@ -59,7 +61,7 @@ initialize()
 
 # init camera
 execution_path = os.getcwd()
-camera = cv2.VideoCapture(2)
+camera = cv2.VideoCapture(0)
 camera_Width  = 640 # 1024 # 1280 # 640
 camera_Heigth = 480 # 960 # 780  # 960  # 480
 frameSize = (camera_Width, camera_Heigth)
@@ -82,31 +84,24 @@ while True:
             frameImageFileName = 'image.png'
             cv2.imwrite(frameImageFileName, img)
 
-            img = Image.open(frameImageFileName)
-            results = predict_image(img)
+            imgPil = Image.open(frameImageFileName)
+            results = predict_image(imgPil)
             json_results = ""
             with app.app_context():        
                  json_results = jsonify(results)          
-                 # get the json string from json_results
                  json_results = json_results.response[0]
-            predSorted = getPredictionsSorted(json_results)
-
-        # calculate FPS >> FPS = 1 / time to process loop
-        fpsInfo = "FPS: " + str(1.0 / (time.time() - start_time)) + "\n-------------------\n" 
+            predSorted = displayPredictions(json_results, img)
 
     except Exception as e:
         print('EXCEPTION:', str(e))
 
-    # display FPS and Predictions, split text into lines, thanks OpenCV putText()
-    frameInfo = fpsInfo + predSorted
-    print(frameInfo)
+    fpsInfo = ""
+    if (time.time() - start_time ) > 0:
+        fpsInfo = "FPS: " + str(1.0 / (time.time() - start_time)) # FPS = 1 / time to process loop
+        font = cv2.FONT_HERSHEY_DUPLEX
+        cv2.putText(img, fpsInfo, (10, 20), font, 0.4, (255, 255, 255), 1)
 
-    for i, line in enumerate(frameInfo.split('\n')):
-        i = i + 1
-        cv2.putText(frame, line, (10, 10 * i), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1)
-
-    # Display the resulting image
-    cv2.imshow('Video', frame)
+    cv2.imshow('@elbruno - DJI Tello Camera', img)
 
     # key controller
     key = cv2.waitKey(1) & 0xFF    
