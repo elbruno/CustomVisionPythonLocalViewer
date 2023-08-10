@@ -1,0 +1,14 @@
+conda create -n ocean python=3.7
+conda activate ocean
+
+pip install opencv-python	
+pip install --no-cache-dir numpy~=1.17.5 tensorflow~=2.0.2 flask~=2.1.2 pillow~=7.2.0 protobuf~=3.20.0
+pip install --no-cache-dir mscviplib
+
+
+
+    
+pip install tensorflow --user
+pip install numpy flask pillow
+pip install protobuf
+pip install mscviplib
