@@ -107,9 +107,9 @@ camera_Width  = 640 # 1024 # 1280 # 640
 camera_Heigth = 480 # 960 # 780  # 960  # 480
 frameSize = (camera_Width, camera_Heigth)
 
-detectionEnabled = True
-displayLabels = True
-displayFPS = True
+detectionEnabled = False
+displayLabels = False
+displayFPS = False
 
 # create color detected as White
 colorDetected = (255, 255, 255)
@@ -159,6 +159,18 @@ while True:
             detectionEnabled = False
         else:
             detectionEnabled = True
+
+    if key == ord("f"):
+        if (displayFPS == True):
+            displayFPS = False
+        else:
+            displayFPS = True
+
+    if key == ord("l"):
+        if (displayLabels == True):
+            displayLabels = False
+        else:
+            displayLabels = True
 
     if key == ord("q"):
         break
