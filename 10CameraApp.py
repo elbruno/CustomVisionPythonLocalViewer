@@ -149,7 +149,7 @@ while True:
             font = cv2.FONT_HERSHEY_DUPLEX
             cv2.putText(img, fpsInfo, (10, 20), font, 0.4, colorDetected, 1)
 
-    cv2.imshow('Ocean Clean Up', img)
+    cv2.imshow('El Bruno - CV Viewer', img)
 
     # key controller
     key = cv2.waitKey(1) & 0xFF    
