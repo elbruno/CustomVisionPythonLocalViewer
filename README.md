@@ -8,7 +8,8 @@ _Create an object detection model in Azure Custom Vision, and running locally in
 
 This is a sample project to use a object detection model, created using  [Azure Custom Vision](https://customvision.ai), locally in a desktop application. 
 
-In order to test the plugin you need access to the ChatGPT plugins developer program. To gain access to ChatGPT plugins, [join waitlist here](https://openai.com/waitlist/plugins)!
+In order to build an Object Detection project, you can follow this tutorial: [Quickstart: Build an object detector with the Custom Vision website
+](https://learn.microsoft.com/en-us/azure/ai-services/custom-vision-service/get-started-build-detector)!
 
 
 ## Prerequisites
