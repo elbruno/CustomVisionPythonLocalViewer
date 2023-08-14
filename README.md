@@ -6,10 +6,12 @@
 
 _Create an object detection model in Azure Custom Vision, and running locally in minutes._ ✨
 
-This is a sample project to use a object detection model, created using  [Azure Custom Vision](https://customvision.ai), locally in a desktop application. 
+This is a sample project to use a object detection model, created using  [Azure Custom Vision](https://customvision.ai), locally in a desktop application. The model is extracted from the "*Custom Vision Export to Docker - Linux*" feature.
 
 In order to build an Object Detection project, you can follow this tutorial: [Quickstart: Build an object detector with the Custom Vision website
-](https://learn.microsoft.com/en-us/azure/ai-services/custom-vision-service/get-started-build-detector)!
+](https://learn.microsoft.com/en-us/azure/ai-services/custom-vision-service/get-started-build-detector)
+
+***Disclaimer**: This demo uses a virtual environment with Python 3.7 as is the required version to run some of the project dependencies.*
 
 
 ## Prerequisites
@@ -50,15 +52,17 @@ In order to build an Object Detection project, you can follow this tutorial: [Qu
 
     The environment is ready to be used.
 
-1. The file `00CheckEnv.py` will test if all the requirements are sucessfully installed.
+1. **✅ Check environment state**: 
 
-1. Run the check environment file with the command.
+    The file `00CheckEnv.py` will test if all the requirements are sucessfully installed.
+
+    Run the check environment file with the command.
 
     ```bash    
     python .\00CheckEnv.py
     ```
 
-1. The output should be similar to this one:
+    The output should be similar to this one:
 
     ```bash    
     TensorFlow: 2.0.4
@@ -71,14 +75,14 @@ In order to build an Object Detection project, you can follow this tutorial: [Qu
 
     ![Export model to Docker Linux](/img/cvdownloadlinux.png "Export model to Docker Linux")
 
-2. Extract the model and, from the app folder, copy the following files to the root of this repository.
+2. Extract the model and, from the app folder, copy the following files to the `src` folder of this repository.
     - labels.txt
     - model.pb
     - predict.py
 
 ## Select the right Camera
 
-1. The file `05CameraTest.py` will allow us to identify the right camera to use. Edit the file and change  the number in the line [cap = cv2.VideoCapture(0)] until the right camera is in use.
+1. The file `.\src\05CameraTest.py` will allow us to identify the right camera to use. Edit the file and change  the number in the line [cap = cv2.VideoCapture(0)] until the right camera is in use.
 
     ```python
     import cv2
@@ -88,7 +92,7 @@ In order to build an Object Detection project, you can follow this tutorial: [Qu
     cap = cv2.VideoCapture(0)
     ```
 
-1. Run the file `05CameraTest.py` with the command.
+1. Navigate to the `src` folder and run the file `05CameraTest.py` with the command.
 
     ```bash    
     python .\05CameraTest.py
@@ -96,9 +100,9 @@ In order to build an Object Detection project, you can follow this tutorial: [Qu
 
 ## Run Locally
 
-1. The file `10CameraApp.py` will use the camera and the exported model to detect object and display the objects in a window. Update the file to use the right.
+1. The file `.\src\10CameraApp.py` will use the camera and the exported model to detect object and display the objects in a window. Update the file to use the right.
 
-1. Run the app with the command.
+1. Navigate to the `src` folder and run the app with the command.
 
     ```bash    
     python .\10CameraApp.py
