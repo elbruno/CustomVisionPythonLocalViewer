@@ -4,11 +4,11 @@
 [![Twitter: elbruno](https://img.shields.io/twitter/follow/elbruno.svg?style=social)](https://twitter.com/elbruno)
 ![GitHub: elbruno](https://img.shields.io/github/followers/elbruno?style=social)
 
-_Create an object detection model in Azure Custom Vision, and running locally in minutes._ ✨
+_Create an object detection model in Azure Custom Vision and run the model locally in a desktop app in minutes._ ✨
 
-This is a sample project to use a object detection model, created using  [Azure Custom Vision](https://customvision.ai), locally in a desktop application. The model is extracted from the "*Custom Vision Export to Docker - Linux*" feature.
+This is a sample project to use an object detection model, created using  [Azure Custom Vision](https://customvision.ai), locally in a desktop application. The model is extracted from the "*Custom Vision Export to Docker - Linux*" feature.
 
-In order to build an Object Detection project, you can follow this tutorial: [Quickstart: Build an object detector with the Custom Vision website
+To build an Object Detection project, you can follow this tutorial: [Quickstart: Build an object detector with the Custom Vision website
 ](https://learn.microsoft.com/en-us/azure/ai-services/custom-vision-service/get-started-build-detector)
 
 ***Disclaimer**: This demo uses a virtual environment with Python 3.7 as is the required version to run some of the project dependencies.*
