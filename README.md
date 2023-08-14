@@ -128,7 +128,7 @@ In order to build an Object Detection project, you can follow this tutorial: [Qu
 
 Contributions, issues and feature requests are welcome!
 
-Feel free to check [issues page](https://github.com/elbruno/OpenAI-Plugin-NET-Sample/issues).
+Feel free to check [issues page](https://github.com/elbruno/CustomVisionPythonLocalViewer/issues).
 
 ## Show your support
 
