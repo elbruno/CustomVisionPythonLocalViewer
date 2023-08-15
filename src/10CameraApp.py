@@ -104,7 +104,7 @@ initialize()
 execution_path = os.getcwd()
 camera = cv2.VideoCapture(0)
 camera_Width  = 640 # 1024 # 1280 # 640
-camera_Heigth = 480 # 960 # 780  # 960  # 480
+camera_Heigth = 480 # 780  # 960  # 480
 frameSize = (camera_Width, camera_Heigth)
 
 detectionEnabled = False
