@@ -123,11 +123,11 @@ while True:
     try:
         # Grab a single frame of video
         ret, frame = camera.read()
-        img = cv2.resize(frame, (camera_Width, camera_Heigth))
+        img = cv2.resize(frame, frameSize)
 
         # this lower the quality of the image for slower devices
         #fast_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
-        #img = cv2.resize(fast_frame, (camera_Width, camera_Heigth))
+        #img = cv2.resize(fast_frame, frameSize)
 
         if  (detectionEnabled):
             # save image to disk and process it
